@@ -59,11 +59,11 @@ The systematic comparison of our three RAG architectures is shown in Table~\ref{
 \centering
 \begin{tabular}{lccccc}
 \toprule
-\textbf{Architecture} & \textbf{EM} & \textbf{F1} & \textbf{P@5} & \textbf{R@5} & \textbf{Latency (ms)} \\
+Architecture & EM & F1 & P@5 & R@5 & Latency (ms) \\
 \midrule
-NaiveRAG & 0.000 & 0.057 & 0.644 & 0.644 & 3818.454 \\
+NaiveRAG & 0.000 & 0.057 & \textbf{0.644} & 0.644 & 3818.454 \\
 DenseRAG & 0.000 & 0.057 & 0.375 & 0.375 & 2072.249 \\
-HybridRAG & 0.000 & 0.057 & 0.516 & 0.516 & 1898.009 \\
+HybridRAG & 0.000 & 0.057 & 0.516 & 0.516 & \textbf{1898.009} \\
 \bottomrule
 \end{tabular}
 \caption{Comparison of RAG architectures on test set.}
@@ -76,11 +76,11 @@ We ran an ablation study on the HybridRAG pipeline to evaluate the impact of chu
 \centering
 \begin{tabular}{lccc}
 \toprule
-\textbf{Config} & \textbf{Chunk Size} & \textbf{Avg F1} & \textbf{Avg Latency (ms)} \\
+Config & Chunk Size & Avg F1 & Avg Latency (ms) \\
 \midrule
-chunk\_256 & 256 & 0.098 & 5305.069 \\
-chunk\_512 & 512 & 0.143 & 4713.262 \\
-chunk\_1024 & 1024 & 0.092 & 4139.647 \\
+chunk\_256 & 256 & 0.044 & 1744.06 \\
+chunk\_512 & 512 & 0.044 & 1417.83 \\
+chunk\_1024 & 1024 & 0.044 & \textbf{1317.74} \\
 \bottomrule
 \end{tabular}
 \caption{Ablation study on chunk size (HybridRAG, 10 questions).}
