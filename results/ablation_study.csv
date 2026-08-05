@@ -1,0 +1,4 @@
+config_name,chunk_size,top_k,alpha,avg_f1,avg_latency_ms
+chunk_256,256,5,0.7,0.044,1744.06
+chunk_512,512,5,0.7,0.044,1417.827
+chunk_1024,1024,5,0.7,0.044,1317.736

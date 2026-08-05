@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LawSaathi-RAG Leaderboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 28, 45, 0.6);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #6366f1;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(135deg, #a78bfa, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .fig-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .fig-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LawSaathi-RAG Leaderboard</h1>
+            <p class="subtitle">Systematic performance comparison of Naive, Dense, and Hybrid RAG architectures on Indian Legal QA</p>
+        </header>
+        <div class="card">
+            <h2>Evaluation Metrics Summary</h2>
+            <table class="dataframe table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Exact Match</th>
+      <th>Token F1</th>
+      <th>Precision@5</th>
+      <th>Recall@5</th>
+      <th>Avg Latency (ms)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>NaiveRAG</th>
+      <td>0.0</td>
+      <td>0.057</td>
+      <td>0.644</td>
+      <td>0.644</td>
+      <td>3818.454</td>
+    </tr>
+    <tr>
+      <th>DenseRAG</th>
+      <td>0.0</td>
+      <td>0.057</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>2072.249</td>
+    </tr>
+    <tr>
+      <th>HybridRAG</th>
+      <td>0.0</td>
+      <td>0.057</td>
+      <td>0.516</td>
+      <td>0.516</td>
+      <td>1898.009</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        <h2>Visualization Charts</h2>
+        <div class="grid">
+            
+            <div class="fig-card">
+                <h3>Exact Match</h3>
+                <img src="../results/figures/Exact_Match.png" alt="Exact Match chart">
+            </div>
+            
+
+            <div class="fig-card">
+                <h3>Token F1</h3>
+                <img src="../results/figures/Token_F1.png" alt="Token F1 chart">
+            </div>
+            
+
+            <div class="fig-card">
+                <h3>Precision@5</h3>
+                <img src="../results/figures/Precision_5.png" alt="Precision@5 chart">
+            </div>
+            
+
+            <div class="fig-card">
+                <h3>Recall@5</h3>
+                <img src="../results/figures/Recall_5.png" alt="Recall@5 chart">
+            </div>
+            
+
+            <div class="fig-card">
+                <h3>Avg Latency (ms)</h3>
+                <img src="../results/figures/Avg_Latency__ms_.png" alt="Avg Latency (ms) chart">
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
