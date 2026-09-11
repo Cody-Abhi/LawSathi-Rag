@@ -38,7 +38,7 @@ Evaluated across Indian legal question-answer pairs:
 | **HybridRAG** | 0.0 | 0.057 | 0.516 | 0.516 | **1898.01 ms** |
 
 ### 🔍 Key Findings from Ablation Studies
-- **Optimal Chunk Size**: Token chunks of **512 tokens** with a 50-token overlap yielded the most optimal trade-off between retrieval context density and generation latency.
+- **Chunk-size ablation**: In the checked-in 10-question ablation, 256-, 512-, and 1024-token chunks all achieve F1 0.044; 1024 tokens has the lowest measured latency, so the results do not establish a unique 512-token optimum.
 - **Fusion Weight**: Setting dense weight $\alpha = 0.7$ and lexical weight $1 - \alpha = 0.3$ strikes an effective balance for hybrid legal querying.
 
 ---
