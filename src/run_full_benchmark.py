@@ -18,6 +18,7 @@ from src.rag_pipelines.hybrid_rag import HybridRAG
 
 logger = logging.getLogger(__name__)
 
+
 def _load_jsonl(path: Path) -> List[Dict]:
     """Helper function to load line-delimited JSON rows into a list."""
     if not path.exists():
@@ -26,10 +27,24 @@ def _load_jsonl(path: Path) -> List[Dict]:
     with open(path, "r", encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
+
 def get_full_corpus(records: List[Dict]) -> List[str]:
-    """Extract and deduplicate context chunks across all test records."""
-    all_chunks = [c for r in records for c in r.get("context_chunks", [])]
-    return list(set(all_chunks))
+    """Extract and stably deduplicate context chunks across all test records.
+
+    Order is preserved by first occurrence so repeated benchmark runs build the
+    retrieval corpus in the same sequence. Using ``set`` here would make corpus
+    order dependent on Python hash iteration order and can introduce avoidable
+    run-to-run variation in index construction and tie-breaking.
+    """
+    seen = set()
+    corpus = []
+    for record in records:
+        for chunk in record.get("context_chunks", []):
+            if chunk not in seen:
+                seen.add(chunk)
+                corpus.append(chunk)
+    return corpus
+
 
 def run_architecture_benchmark(
     arch_class: type, name: str, corpus: List[str], records: List[Dict], out_path: Path
@@ -51,6 +66,7 @@ def run_architecture_benchmark(
     logger.info(f"{name} completed in {duration:.2f} seconds.")
     save_jsonl(out_path, results)
 
+
 def main() -> None:
     """Orchestrate full evaluation run across NaiveRAG, DenseRAG, and HybridRAG."""
     test_path = project_root / "data" / "test.jsonl"
@@ -66,6 +82,7 @@ def main() -> None:
     for arch_cls, name, filename in benchmarks:
         run_architecture_benchmark(arch_cls, name, corpus, records, preds_dir / filename)
     logger.info("Full benchmark complete. Predictions saved to results/predictions/")
+
 
 if __name__ == "__main__":
     main()
