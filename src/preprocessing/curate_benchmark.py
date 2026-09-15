@@ -26,11 +26,12 @@ def find_data_file(directory: Path) -> Path:
     zip_files = []
     for f in directory.rglob("*"):
         if f.is_file():
-            if f.suffix in (".json", ".jsonl"):
+            suffix = f.suffix.lower()
+            if suffix in (".json", ".jsonl"):
                 json_files.append(f)
-            elif f.suffix == ".csv":
+            elif suffix == ".csv":
                 csv_files.append(f)
-            elif f.suffix == ".zip":
+            elif suffix == ".zip":
                 zip_files.append(f)
     if json_files:
         return json_files[0]
