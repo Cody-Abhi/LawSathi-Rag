@@ -41,9 +41,18 @@ def find_data_file(directory: Path) -> Path:
         extract_dir = zip_path.parent / "extracted"
         extract_dir.mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            zip_ref.extractall(extract_dir)
+            safe_extract_zip(zip_ref, extract_dir)
         return find_data_file(extract_dir)
     return None
+
+def safe_extract_zip(zip_ref: zipfile.ZipFile, extract_dir: Path) -> None:
+    """Extract a zip archive without allowing members to escape extract_dir."""
+    extract_root = extract_dir.resolve()
+    for member in zip_ref.infolist():
+        target_path = (extract_root / member.filename).resolve()
+        if target_path != extract_root and extract_root not in target_path.parents:
+            raise ValueError(f"Unsafe zip member path: {member.filename}")
+    zip_ref.extractall(extract_root)
 
 def load_raw_data(file_path: Path) -> list[dict]:
     """Load raw records from JSON, JSONL, or CSV format."""
