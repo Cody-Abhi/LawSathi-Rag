@@ -54,10 +54,12 @@ def retry_with_backoff(func: Callable, *args: Any, max_retries: int = 3, initial
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            logger.warning(f"Attempt {attempt}/{max_retries} failed: {e}. Retrying in {delay}s...")
             if attempt < max_retries:
+                logger.warning(f"Attempt {attempt}/{max_retries} failed: {e}. Retrying in {delay}s...")
                 time.sleep(delay)
                 delay *= 2.0
+            else:
+                logger.warning(f"Attempt {attempt}/{max_retries} failed: {e}. No retries left.")
     raise RuntimeError(f"All {max_retries} attempts failed for function '{func.__name__}'.")
 
 def save_jsonl(file_path: Path, data: list[dict[str, Any]]) -> None:
