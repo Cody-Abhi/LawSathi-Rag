@@ -145,7 +145,7 @@ def save_category_summary(output_path: Path, summary: Dict[str, Dict[str, float]
 def plot_error_breakdown(output_path: Path, summary: Dict[str, Dict[str, float]]) -> None:
     """Plot the observed error-category distribution; never fabricate percentages."""
     try:
-        import matplotlib.pyplot as plt
+        import matplotlib.pyplot as plt  # type: ignore
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
         plt.ioff()
